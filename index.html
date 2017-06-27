@@ -2,1179 +2,1171 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript">
-// var fzzpath="http://map.closermedia.cn";
+	// var fzzpath="http://map.closermedia.cn";
 // var path="http://map.closermedia.cn";
+
 </script>
+
 <head>
 
-<script type="text/javascript" src="js/jquery.1.11.0.js"></script>
-<script type="text/javascript" src="js/layer/layer.min.js"></script>
-<script type="text/javascript" src="js/layer/extend/layer.ext.js"></script>
-<script type="text/javascript" src="js/baseutil.js"></script>
+	<script type="text/javascript" src="js/jquery.1.11.0.js"></script>
+	<script type="text/javascript" src="js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="js/layer/extend/layer.ext.js"></script>
+	<script type="text/javascript" src="js/baseutil.js"></script>
 
-<!--[if lte IE 6]>
+	<!--[if lte IE 6]>
 <script  type="text/javascript"  src="http://map.closermedia.cn/js/ie6png.js" ></script>
 <script type="text/javascript">//DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<link rel="SHORTCUT ICON" href="images/favicon.ico?v=0.09"/>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gXMiRfLosX2qPaAvYOK7XsjFA058dXQV"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
-<script type="text/javascript" src="js/basemap.js"></script>
+	<link rel="SHORTCUT ICON" href="images/favicon.ico?v=0.09" />
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gXMiRfLosX2qPaAvYOK7XsjFA058dXQV"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+	<script type="text/javascript" src="js/basemap.js"></script>
 
-<link href="css/index.css" rel="stylesheet" type="text/css" />
-<title>窗外传媒千里眼</title>
-<style type="">
-.tangram-suggestion-main{
-	z-index: 999;
-}
-</style>
-<script type="text/javascript">
-var circle = null;
-var styleOptions = {
-		strokeColor:"#0B6C59",
-		fillColor:"#79AC21",
-		strokeWeight: 1,
-		strokeOpacity: 0.8,
-		fillOpacity: 0.3,
-		strokeStyle: 'solid'
-}
-$(document).ready(function(){
-	var dft="1";
-	var h=$(window).height()-52;
-	$("#mapview").css("height", h+"px");
-	var vw=($(window).width()-740)/2;
-	var vh=($(window).height()-600)/2;
-	if(vh<60){vh=60;}
-	$("#village_d").css("left",vw);
-	$("#village_d").css("top",vh);
-	if(dft=="1"){
-		var xy = "111.675624,35.389083";
-	 	baseMap.loadmap("上海",xy,5);
-	 	$(".city>a").text("全国");
-		$(".search").css("left","-500px");
-		$("#result_bg,#result").css("left","-500px");
-	}else{
-	 	var xy = "121.480237,31.236305";
-	 	baseMap.loadmap("上海",xy,12);
-	}
-	var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}); //右上角，仅包含平移和缩放按钮
-	baseMap.map.addControl(top_right_navigation);    
- 	
-	baseMap.map.setMinZoom(5);
- 	baseMap.map.addEventListener("tilesloaded", function() {
-		loadData();
-	});
- 	$("#filter ul li").mouseover(function(){
- 		$(this).find("div").show();
- 	}).mouseout(function(){
- 		$(this).find("div").hide();
- 	});
- 	$("#distance").mouseover(function(){
- 		$("#distance_slt").show();
- 	}).mouseout(function(){
- 		$("#distance_slt").hide();
- 	});
- 	$("#activity_ele").mouseover(function(){
- 		$("#activity_slt").show();
- 	}).mouseout(function(){
- 		$("#activity_slt").hide();
- 	});
- 	
- 	$("#filter ul li div a").click(function(){
- 		var this_ = $(this);
- 		var this_text = this_.text();
- 		var this_value = this_.attr("value");
- 		var a = this_.parent().parent().find("a:first");
- 		var ipt = this_.parent().parent().find("input");
- 		var text="";
- 		if(this_.attr("value")!=""){
- 			text = this_text;
- 		}else{
- 			text = ipt.attr("default");
- 		}
- 		a.text(text);
- 		ipt.val(this_value);
- 		var vals = this_value.split("~");
- 		if(typeof(ipt.attr("Start"))!='undefined'){
- 			ipt.attr("Start",vals[0])
- 		}
- 		if(typeof(ipt.attr("End"))!='undefined'){
- 			if(vals.length>1){
- 				ipt.attr("End",vals[1]);
- 			}else{
- 				ipt.attr("End","");
- 			}
- 		}
- 		this_.parent().hide();
- 		clearParam('filter');
- 		onFilter();
- 	});
- 	$("#ord a").click(function(){
- 		$("#ord a").removeClass("od0 od1");
- 		var rel = $(this).attr("rel");
- 		if(orderBy=="" || orderBy.indexOf(rel)==-1 || orderBy.split("-").length<2){
- 			orderBy = rel+"-1";
- 			$(this).addClass("od1");
- 		}else{
- 			var od = parseInt(orderBy.split("-")[1]);
- 			var nd = Math.abs(1-od);
- 			orderBy = rel+"-"+nd;
- 			$(this).addClass("od"+nd);
- 		}
- 		currentPage=1;
- 		recordCount=0;
- 		search();
- 	});
- 	
-	$("#villageOrAddress").keyup(function(){
-		if(event.keyCode==13){			
-			searchVillage();
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<title>窗外传媒千里眼</title>
+	<style type="">
+		.tangram-suggestion-main{ z-index: 999; }
+	</style>
+	<script type="text/javascript">
+		var circle = null;
+		var styleOptions = {
+			strokeColor: "#0B6C59",
+			fillColor: "#79AC21",
+			strokeWeight: 1,
+			strokeOpacity: 0.8,
+			fillOpacity: 0.3,
+			strokeStyle: 'solid'
 		}
-	});
-	
- 	var ac = new BMap.Autocomplete(
-	{
-		"input" : "villageOrAddress",
-		"location" : baseMap.map,
-		"onSearchComplete":function(rst){
-			if(rst!=undefined && rst.getNumPois()>0){
-				$("#villageOrAddress").attr("k",rst.getPoi(0).business);
-			}else{
-				$("#villageOrAddress").attr("k","");
+		$(document).ready(function () {
+			var dft = "1";
+			var h = $(window).height() - 52;
+			$("#mapview").css("height", h + "px");
+			var vw = ($(window).width() - 740) / 2;
+			var vh = ($(window).height() - 600) / 2;
+			if (vh < 60) { vh = 60; }
+			$("#village_d").css("left", vw);
+			$("#village_d").css("top", vh);
+			if (dft == "1") {
+				var xy = "111.675624,35.389083";
+				baseMap.loadmap("上海", xy, 5);
+				$(".city>a").text("全国");
+				$(".search").css("left", "-500px");
+				$("#result_bg,#result").css("left", "-500px");
+			} else {
+				var xy = "121.480237,31.236305";
+				baseMap.loadmap("上海", xy, 12);
+			}
+			var top_right_navigation = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL }); //右上角，仅包含平移和缩放按钮
+			baseMap.map.addControl(top_right_navigation);
+
+			baseMap.map.setMinZoom(5);
+			baseMap.map.addEventListener("tilesloaded", function () {
+				loadData();
+			});
+			$("#filter ul li").mouseover(function () {
+				$(this).find("div").show();
+			}).mouseout(function () {
+				$(this).find("div").hide();
+			});
+			$("#distance").mouseover(function () {
+				$("#distance_slt").show();
+			}).mouseout(function () {
+				$("#distance_slt").hide();
+			});
+			$("#activity_ele").mouseover(function () {
+				$("#activity_slt").show();
+			}).mouseout(function () {
+				$("#activity_slt").hide();
+			});
+
+			$("#filter ul li div a").click(function () {
+				var this_ = $(this);
+				var this_text = this_.text();
+				var this_value = this_.attr("value");
+				var a = this_.parent().parent().find("a:first");
+				var ipt = this_.parent().parent().find("input");
+				var text = "";
+				if (this_.attr("value") != "") {
+					text = this_text;
+				} else {
+					text = ipt.attr("default");
+				}
+				a.text(text);
+				ipt.val(this_value);
+				var vals = this_value.split("~");
+				if (typeof (ipt.attr("Start")) != 'undefined') {
+					ipt.attr("Start", vals[0])
+				}
+				if (typeof (ipt.attr("End")) != 'undefined') {
+					if (vals.length > 1) {
+						ipt.attr("End", vals[1]);
+					} else {
+						ipt.attr("End", "");
+					}
+				}
+				this_.parent().hide();
+				clearParam('filter');
+				onFilter();
+			});
+			$("#ord a").click(function () {
+				$("#ord a").removeClass("od0 od1");
+				var rel = $(this).attr("rel");
+				if (orderBy == "" || orderBy.indexOf(rel) == -1 || orderBy.split("-").length < 2) {
+					orderBy = rel + "-1";
+					$(this).addClass("od1");
+				} else {
+					var od = parseInt(orderBy.split("-")[1]);
+					var nd = Math.abs(1 - od);
+					orderBy = rel + "-" + nd;
+					$(this).addClass("od" + nd);
+				}
+				currentPage = 1;
+				recordCount = 0;
+				search();
+			});
+
+			$("#villageOrAddress").keyup(function () {
+				if (event.keyCode == 13) {
+					searchVillage();
+				}
+			});
+
+			var ac = new BMap.Autocomplete(
+				{
+					"input": "villageOrAddress",
+					"location": baseMap.map,
+					"onSearchComplete": function (rst) {
+						if (rst != undefined && rst.getNumPois() > 0) {
+							$("#villageOrAddress").attr("k", rst.getPoi(0).business);
+						} else {
+							$("#villageOrAddress").attr("k", "");
+						}
+					}
+
+				});
+			ac.addEventListener("onconfirm", function (e) {
+				searchVillage();
+			});
+
+		});
+		function loadData() {
+			var zoom = baseMap.map.getZoom();
+			if (zoom <= 9) {
+				$(".city>a").text("全国");
+				$(".search").css("left", "-500px");
+				$("#result_bg,#result").css("left", "-500px");
+			} else {
+				$(".city>a").text("上海");
+				$(".search").css("left", "0px");
+				$("#result_bg,#result").css("left", "0px");
+			}
+			var post = baseMap.getMapParam();
+			if (circle != null) {
+				var bounds = circle.getBounds();
+				var ne = bounds.getNorthEast();
+				var se = bounds.getSouthWest();
+				var bound = se.lng + "," + ne.lng + ";" + se.lat + "," + ne.lat;
+				post['circleRadius'] = circle.getRadius();
+				post['circleLng'] = circle.getCenter().lng;
+				post['circleLat'] = circle.getCenter().lat;
+				post['bound'] = bound;
+			}
+			zUtil.post(
+				// "http://map.closermedia.cn/mediadata/map",
+				'/json/getArea.json',
+				post,
+				function (data) {
+					baseMap.map.clearOverlays();
+					if (data.groupData != undefined && data.groupData.length > 0) {
+						for (var index in data.groupData) {
+							var obj = data.groupData[index];
+							if (obj["longitude"] == undefined || obj["longitude"] == '' || obj["latitude"] == undefined || obj["latitude"] == '') {
+								continue;
+							}
+							var html = "";
+							html += "<div class='district'>";
+							html += "<a class='lnk' href='javascript:;'><span>" + obj["city_nm"] + "<br/>" + obj["media_numb"] + "个</span></a>";
+							html += "</div>";
+							baseMap.addHtmlMarker(obj["longitude"], obj["latitude"], html, function (e) {
+								var _data = e._data;
+								location.href = "http://map.closermedia.cn/" + _data["city_id"];
+							}, obj, 30, 25);
+						}
+					}
+					if (data.cityData != undefined && data.cityData.length > 0) {
+						for (var index in data.cityData) {
+							var obj = data.cityData[index];
+							if (obj["longitude"] == undefined || obj["longitude"] == '' || obj["latitude"] == undefined || obj["latitude"] == '') {
+								continue;
+							}
+							var html = "";
+							html += "<div class='district'>";
+							html += "<a class='lnk' href='javascript:;'><span>" + obj["city_nm"] + "<br/>" + obj["village_numb"] + "个</span></a>";
+							html += "</div>";
+							baseMap.addHtmlMarker(obj["longitude"], obj["latitude"], html, function (e) {
+								var _data = e._data;
+								$('#result,#result_bg').hide();
+								baseMap.centerPoint(_data["longitude"], _data["latitude"], 15);
+							}, obj, 30, 25);
+						}
+					}
+					if (data.villageList != undefined && data.villageList.length > 0) {
+						for (var index in data.villageList) {
+							var obj = data.villageList[index];
+							if (obj["longitude"] == undefined || obj["longitude"] == '' || obj["latitude"] == undefined || obj["latitude"] == '') {
+								continue;
+							}
+							var cls = "name";
+							if (villageIds[obj.villageId] != undefined) {
+								cls += " vhover";
+							}
+							var html = "";
+							html += "<div class='village'>";
+							html += "<img src='images/logo50.png'>";
+							html += "<a class='" + cls + "' href='javascript:;' id='pt_" + obj["villageId"] + "'>" + obj["villageNm"] + "</a>";
+							html += "</div>";
+							baseMap.addHtmlMarker(obj["longitude"], obj["latitude"], html, function (e) {
+								var _data = e._data;
+								villageInfo(_data.villageId, 'village_d', _data["longitude"], _data["latitude"]);
+								$('#result,#result_bg').hide();
+							}, obj, 15, 30);
+						}
+					}
+					if (data.mediaList != undefined && data.mediaList.length > 0) {
+						for (var index in data.mediaList) {
+							var obj = data.mediaList[index];
+							var cls = "name";
+							if (villageIds[obj.villageId] != undefined) {
+								cls += " vhover";
+							}
+							var html = "";
+							html += "<div class='media'>";
+							html += "<a href=\"javascript:;\" title=\"" + (obj["villageNm"] + "|" + obj["mtNm"] + "|" + obj["position"]) + "\"><img src='images/green.png'></a>";
+							html += "</div>";
+							baseMap.addHtmlMarker(obj["longitude"], obj["latitude"], html, function (e) {
+
+							}, obj, 10, 13);
+						}
+					}
+					if (circle != null && zoom > 9) {
+						baseMap.addHtmlMarker(circle.getCenter().lng, circle.getCenter().lat, "<div class='radius' onclick='removeCircle()'>关闭</div>", null, "", 20, 15);
+					}
+					if (zoom > 9 && baseMap.map.getOverlays().length == 0 && !baseMap.map.getBounds().containsPoint(new BMap.Point("121.480237", "31.236305"))) {
+						baseMap.map.panTo(new BMap.Point("121.480237", "31.236305"));
+					}
+				}
+			);
+		}
+		function getParam(post) {
+			if (post == undefined) {
+				post = {};
+			}
+			post.activity = $("#activity").val();
+			$("#filter input[type='hidden']").each(function () {
+				var obj = $(this);
+				var v = $.trim(obj.val());
+				var k = obj.attr("id");
+				if (typeof (obj.attr("Start")) != 'undefined') {
+					var start = k + "Start";
+					var end = k + "End";
+					if (v != "") {
+						post[start] = obj.attr("Start");
+						post[end] = obj.attr("End");
+					}
+				} else {
+					if (v != "") {
+						post[k] = v;
+					}
+				}
+			});
+			if (circle != null) {
+				var bounds = circle.getBounds();
+				var ne = bounds.getNorthEast();
+				var se = bounds.getSouthWest();
+				var bound = se.lng + "," + ne.lng + ";" + se.lat + "," + ne.lat;
+				post['circleRadius'] = circle.getRadius();
+				post['circleLng'] = circle.getCenter().lng;
+				post['circleLat'] = circle.getCenter().lat;
+				post['bound'] = bound;
+			}
+			return post;
+		}
+		var pageSize = 5;
+		var currentPage = 1;
+		var recordCount = 0;
+		var orderBy = "";
+		var villageIds = {};
+		function search() {
+			$("#village_d,#info").hide();
+			var post = getParam();
+			post.type = "list";
+			post.currentPage = currentPage;
+			post.recordCount = recordCount;
+			post.orderBy = orderBy;
+			post.pageSize = pageSize;
+			zUtil.post(
+				"http://map.closermedia.cn/mediadata/map",
+				post,
+				function (data) {
+					$("#result").show();
+					$("#result_bg").show();
+					if (currentPage <= 1) {
+						villageIds = {};
+						$("#list ul").html("");
+					}
+					if (data.groupResult != undefined) {
+						recordCount = data.groupResult.villageCount;
+						$("#vc").html(recordCount);
+						for (var k in data.groupResult) {
+							$("#" + k + "_c").html(data.groupResult[k]);
+						}
+					}
+					if (data.list != undefined && data.pageIndex == currentPage) {
+						var first = null;
+						for (var i in data.list) {
+							var obj = data.list[i];
+							if (first == null && (obj.longitude != null && obj.latitude != null)) {
+								first = obj;
+							}
+							var html = "";
+							html += '<li>';
+							html += '<a href="javascript:;" onclick="villageInfo(' + obj.villageId + ',\'info\',' + obj.longitude + ',' + obj.latitude + ')" onmouseover="show_pt(' + obj.villageId + ')">';
+							html += '<div class="imgdiv">';
+							if (obj.firstImgUrl) {
+								html += '<img src="' + obj.firstImgUrl + '">';
+							} else {
+								html += '<img src="images/nopic100.jpg">';
+							}
+							html += '</div>';
+							html += '<div class="right">';
+							html += '<div class="name">' + obj.villageNm + '</div>';
+							html += '<div class="gray">' + obj.address + '</div>';
+							html += '<span class="tl gray">' + obj.inYear + '年建</span>';
+							html += '<span class="split gray">&nbsp;</span>';
+							html += '<span class="tl gray">' + obj.inUsers + '户</span>';
+							html += '<span class="split gray">&nbsp;</span>';
+							html += '<span class="tl gray">' + obj.avgPrice + '万/平方</span>';
+							if (obj.activity != undefined && obj.activity != 0) {
+								var activity = "小型活动";
+								if (obj.activity == 2) {
+									activity = "中型活动";
+								} else if (obj.activity == 3) {
+									activity = "大型活动";
+								}
+								html += '<span class="split gray">&nbsp;</span>';
+								html += '<span class="tl orange">' + activity + '</span>';
+							}
+							html += '</div>';
+							html += '</a>';
+							html += '</li>';
+							villageIds[obj.villageId] = 1;
+							$("#list ul").append(html);
+						}
+						reset_map(first);
+						var h = $("#list ul").height();
+						$("#list").animate({ scrollTop: h + 'px' }, 800);
+						if (data.list.length < pageSize) {
+							$("#nextPage").html("没有更多了^_^");
+							$("#nextPage").attr("plus", "0");
+						} else {
+							$("#nextPage").html("加载更多");
+							$("#nextPage").attr("plus", "1");
+						}
+					} else {
+						$("#nextPage").html("没有更多了^_^");
+						$("#nextPage").attr("plus", "0");
+					}
+				}
+			);
+		}
+		function show_pt(id) {
+			//$("#pt_"+id).animate({paddingLeft:25},300).animate({paddingLeft:10},300);
+		}
+		var marker = null;
+		function reset_map(obj) {
+			var zoom = baseMap.map.getZoom();
+			if (zoom < 15) {
+				zoom = 15;
+			}
+			if (obj != null) {
+				baseMap.map.removeOverlay(marker);
+				marker = null;
+				baseMap.map.setZoom(zoom);
+				baseMap.map.panTo(new BMap.Point(obj.longitude, obj.latitude));
+				return;
+			}
+			//搜索地址
+			var val = $.trim($("#villageOrAddress").val());
+			if (val == "") {
+				return;
+			}
+			var options = {
+				map: baseMap.map,
+				forceLocal: true,
+				onSearchComplete: function (results) {
+					if (local.getStatus() == BMAP_STATUS_SUCCESS && results.getCurrentNumPois() > 0) {
+						var obj = results.getPoi(0);
+						baseMap.map.setZoom(zoom);
+						baseMap.map.panTo(new BMap.Point(obj.point.lng, obj.point.lat));
+						setTimeout(function () {
+							if (marker == null) {
+								marker = new BMap.Marker(obj.point, { enableMassClear: false, title: obj.title });
+								baseMap.map.addOverlay(marker);
+							} else {
+								marker.setPosition(obj.point);
+							}
+						}, 500);
+					} else {
+						zUtil.msg("请重新搜索！");
+					}
+				}
+			};
+			var local = new BMap.LocalSearch(baseMap.map, options);
+			local.search(val);
+		}
+		function searchVillage() {
+			var key = $.trim($("#villageOrAddress").val());
+			var k = $("#villageOrAddress").attr("k");
+			if (k != undefined && k != "") {
+				key = k;
+				$("#villageOrAddress").val(k);
+			}
+			if (key == "") {
+				return;
+			}
+			function myFun() {
+				if (local.getResults().getNumPois() == 0) {
+					zUtil.msg("没有搜索到结果!");
+					return;
+				}
+				var pp = local.getResults().getPoi(0).point;
+				if (circle != null) {
+					circle.remove();
+					circle = null;
+				}
+				circle = new BMap.Circle(pp, 5000, styleOptions);
+				baseMap.map.addOverlay(circle);
+				circle.disableMassClear();
+				baseMap.addHtmlMarker(pp.lng, pp.lat, "<div class='radius' onclick='removeCircle()'>关闭</div>", null, "", 20, 15);
+				setRadius(3);
+				circleSearch();
+			}
+			var local = new BMap.LocalSearch(baseMap.map, {
+				onSearchComplete: myFun
+			});
+			local.search(key);
+			/* 
+			currentPage=1;
+			recordCount=0;
+			search();
+			 */
+		}
+		function onFilter() {
+			$("#villageOrAddress").val("");
+			currentPage = 1;
+			recordCount = 0;
+			search();
+		}
+		function toPage(num) {
+			num = parseInt(num);
+			if (num <= 0) {
+				return;
+			}
+			currentPage += num;
+			search();
+		}
+		var villageInfoMap = {};
+		function villageInfo(villageId, toId, lng, lat) {
+			var zoom = baseMap.map.getZoom();
+			if (zoom < 18) {
+				zoom = 18;
+			}
+			baseMap.centerPoint(lng, lat, zoom);
+
+			$("#village_d,#info").html("");
+			if (villageInfoMap[villageId] == undefined) {
+				var url = "http://map.closermedia.cn/mediadata/village/info/" + villageId;
+				zUtil.get(url, {}, function (html) {
+					if ($.trim(html) != "") {
+						villageInfoMap[villageId] = html;
+					}
+				}, 10, null, false, false, "html");
+			}
+			if (villageInfoMap[villageId] == undefined) {
+				zUtil.msg("请求异常,请重试!");
+			}
+			$("#" + toId).html(villageInfoMap[villageId]);
+			$("#" + toId).show();
+			info_init();
+		}
+		//详情页
+		var step = 810;
+		function info_init() {
+			$("#bigimg_ul").width($("#imgCount").val() * step);
+			toBack();
+		}
+
+		function moveImgs(num) {
+			var s = 800;
+			var w = $("#imgCount").val() * 200;
+			$("#u_imgs_ul").width(w);
+			var oleft = $("#u_imgs_ul").position().left;
+			num = s * num;
+			left = oleft + num;
+			if (left >= 0) {
+				left = 0;
+			} else if (w + left < 800) {
+				left = -1 * (w - 800);
+			}
+			$("#u_imgs_ul").animate({ left: left + 'px' }, "fast");
+		}
+		function toBigImg(index) {
+			$("#vpanel").hide();
+			$("#bigimg").css("display", "block");
+			$("#toBack").show();
+			setTimeout(function () {
+				var left = -1 * index * step;
+				moveBigImg(0, left);
+			}, 50);
+		}
+		function moveBigImg(num, left) {
+			var oleft = $("#bigimg_ul").position().left;
+			if (left == undefined) {
+				num = num * step;
+				left = oleft + num;
+			}
+			var limit = -1 * ($("#imgCount").val() - 1) * step;
+			if (left >= 0) {
+				if (oleft == 0 && left != 0) {
+					$("#bigimg_ul").animate({ left: '20px' }, "fast");
+					$("#bigimg_ul").animate({ left: '0px' }, "fast");
+					return;
+				}
+				left = 0;
+			} else if (left <= limit) {
+				if (oleft == limit && left != limit) {
+					$("#bigimg_ul").animate({ left: (limit - 20) + 'px' }, "fast");
+					$("#bigimg_ul").animate({ left: limit + 'px' }, "fast");
+					return;
+				}
+				left = limit;
+			}
+			$("#bigimg_ul").animate({ left: left + 'px' }, "fast");
+			var index = Math.abs(left / step);
+			var imgLi = $("#bigimg_ul li:eq(" + index + ")");
+			var cid = imgLi.attr("c_id");
+			var li = $("#bigLogo_" + cid);
+			shiftBigLogo(li);
+		}
+		function shiftBigLogo(li, c_id) {
+			$("#vpanel").hide();
+			$("#bigimg").css("display", "block");
+			$("#toBack").show();
+
+			$("#big_u_logo li").removeClass("logo_cur");
+			$(li).addClass("logo_cur");
+			if (c_id != undefined) {
+				var index = $("#bigimg_ul li[c_id=" + c_id + "]").attr("index");
+				var left = -1 * index * step;
+				moveBigImg(0, left);
 			}
 		}
- 			
- 	});	
-	ac.addEventListener("onconfirm", function(e) {		
-		searchVillage();
-	});
-	
-});
-function loadData(){
-	var zoom = baseMap.map.getZoom();
-	if(zoom<=9){
-		$(".city>a").text("全国");
-		$(".search").css("left","-500px");
-		$("#result_bg,#result").css("left","-500px");
-	}else{
-		$(".city>a").text("上海");
-		$(".search").css("left","0px");
-		$("#result_bg,#result").css("left","0px");
-	}
-	var post = baseMap.getMapParam();
-	if(circle!=null){
-		var bounds=circle.getBounds();
-		var ne = bounds.getNorthEast();
-		var se = bounds.getSouthWest();
-		var bound = se.lng + "," + ne.lng + ";" + se.lat + "," + ne.lat;
-		post['circleRadius']=circle.getRadius();
-		post['circleLng']=circle.getCenter().lng;
-		post['circleLat']=circle.getCenter().lat;
-		post['bound']=bound;
-	}
-	zUtil.post(
-		// "http://map.closermedia.cn/mediadata/map",
-        '/json/getArea.json',
-		post,
-		function(data){
-			baseMap.map.clearOverlays();
-			if(data.groupData!=undefined && data.groupData.length>0){
-				for(var index in data.groupData){
-					var obj = data.groupData[index];
-					if(obj["longitude"]==undefined || obj["longitude"]=='' || obj["latitude"]==undefined || obj["latitude"]==''){
-						continue;
-					}
-					var html="";
-					html += "<div class='district'>";
-					html += "<a class='lnk' href='javascript:;'><span>"+obj["city_nm"]+"<br/>"+obj["media_numb"]+"个</span></a>";
-					html += "</div>";
-					baseMap.addHtmlMarker(obj["longitude"],obj["latitude"],html,function(e){
-						var _data = e._data;
-						location.href="http://map.closermedia.cn/"+_data["city_id"];
-					},obj,30,25);
-				}
-			}
-			if(data.cityData!=undefined && data.cityData.length>0){
-				for(var index in data.cityData){
-					var obj = data.cityData[index];
-					if(obj["longitude"]==undefined || obj["longitude"]=='' || obj["latitude"]==undefined || obj["latitude"]==''){
-						continue;
-					}
-					var html="";
-					html += "<div class='district'>";
-					html += "<a class='lnk' href='javascript:;'><span>"+obj["city_nm"]+"<br/>"+obj["village_numb"]+"个</span></a>";
-					html += "</div>";
-					baseMap.addHtmlMarker(obj["longitude"],obj["latitude"],html,function(e){
-						var _data = e._data;
-						$('#result,#result_bg').hide();
-						baseMap.centerPoint(_data["longitude"],_data["latitude"],15);
-					},obj,30,25);
-				}
-			}
-			if(data.villageList!=undefined && data.villageList.length>0){
-				for(var index in data.villageList){
-					var obj = data.villageList[index];
-					if(obj["longitude"]==undefined || obj["longitude"]=='' || obj["latitude"]==undefined || obj["latitude"]==''){
-						continue;
-					}
-					var cls = "name";
-					if(villageIds[obj.villageId]!=undefined){
-						cls += " vhover";
-					}
-					var html="";
-					html += "<div class='village'>";
-					html += "<img src='images/logo50.png'>";
-					html += "<a class='"+cls+"' href='javascript:;' id='pt_"+obj["villageId"]+"'>"+obj["villageNm"]+"</a>";
-					html += "</div>";
-					baseMap.addHtmlMarker(obj["longitude"],obj["latitude"],html,function(e){
-						var _data = e._data;
-						villageInfo(_data.villageId,'village_d',_data["longitude"],_data["latitude"]);
-						$('#result,#result_bg').hide();
-					},obj,15,30);
-				}
-			}
-			if(data.mediaList!=undefined && data.mediaList.length>0){
-				for(var index in data.mediaList){
-					var obj = data.mediaList[index];
-					var cls = "name";
-					if(villageIds[obj.villageId]!=undefined){
-						cls += " vhover";
-					}
-					var html="";
-					html += "<div class='media'>";
-					html += "<a href=\"javascript:;\" title=\""+(obj["villageNm"]+"|"+obj["mtNm"]+"|"+obj["position"])+"\"><img src='images/green.png'></a>";
-					html += "</div>";
-					baseMap.addHtmlMarker(obj["longitude"],obj["latitude"],html,function(e){
-						
-					},obj,10,13);
-				}
-			}
-			if(circle!=null && zoom>9){
-				baseMap.addHtmlMarker(circle.getCenter().lng,circle.getCenter().lat,"<div class='radius' onclick='removeCircle()'>关闭</div>",null,"",20,15);
-			}
-			if(zoom>9 && baseMap.map.getOverlays().length==0 && !baseMap.map.getBounds().containsPoint(new BMap.Point("121.480237","31.236305"))){
-				baseMap.map.panTo(new BMap.Point("121.480237","31.236305"));
-			}
+		function toBack() {
+			$("#bigimg").hide();
+			$("#vpanel").show();
+			$("#toBack").hide();
+			$("#big_u_logo li").removeClass("logo_cur");
 		}
-	);
-}
-function getParam(post){
-	if(post==undefined){
-		post={};
-	}
-	post.activity = $("#activity").val();
-	$("#filter input[type='hidden']").each(function(){
-		var obj = $(this);
-		var v = $.trim(obj.val());
-		var k=obj.attr("id");
-		if(typeof(obj.attr("Start"))!='undefined'){
-			var start=k+"Start";
-			var end=k+"End";
-			if(v!=""){
-				post[start] = obj.attr("Start");
-				post[end] = obj.attr("End");
+		function toLogin() {
+			var post = {
+				userName: "",
+				password: "",
+				checkCode: ""
 			}
-		}else{
-			if(v!=""){
+			var fun = {
+				userName: function (v) { if (v == "") { zUtil.msg("用户名不能空！"); return false; } return true; },
+				password: function (v) { if (v == "") { zUtil.msg("密码不能空！"); return false; } return true; },
+				checkCode: function (v) { if (v.length != 4) { zUtil.msg("验证码为4位！"); return false; } return true; }
+			}
+			for (var k in post) {
+				var v = $.trim($("#" + k).val());
+				if (!fun[k](v)) {
+					$("#" + k).focus();
+					return;
+				}
 				post[k] = v;
 			}
-		}
-	});
-	if(circle!=null){
-		var bounds=circle.getBounds();
-		var ne = bounds.getNorthEast();
-		var se = bounds.getSouthWest();
-		var bound = se.lng + "," + ne.lng + ";" + se.lat + "," + ne.lat;
-		post['circleRadius']=circle.getRadius();
-		post['circleLng']=circle.getCenter().lng;
-		post['circleLat']=circle.getCenter().lat;
-		post['bound']=bound;
-	}
-	return post;
-}
-var pageSize=5;
-var currentPage=1;
-var recordCount=0;
-var orderBy="";
-var villageIds={};
-function search(){
-	$("#village_d,#info").hide();
-	var post = getParam();
-	post.type="list";
-	post.currentPage=currentPage;
-	post.recordCount=recordCount;
-	post.orderBy=orderBy;
-	post.pageSize=pageSize;
-	zUtil.post(
-		"http://map.closermedia.cn/mediadata/map",
-		post,
-		function(data){
-			$("#result").show();
-			$("#result_bg").show();
-			if(currentPage<=1){
-				villageIds={};
-				$("#list ul").html("");
-			}
-			if(data.groupResult!=undefined){
-				recordCount = data.groupResult.villageCount;
-				$("#vc").html(recordCount);
-				for(var k in data.groupResult){
-					$("#"+k+"_c").html(data.groupResult[k]);
-				}
-			}
-			if(data.list!=undefined && data.pageIndex==currentPage){
-				var first = null;
-				for(var i in data.list){
-					var obj = data.list[i];
-					if(first==null && (obj.longitude!=null && obj.latitude!=null)){
-						first = obj;
-					}
-					var html = "";
-					html += '<li>';
-					html += '<a href="javascript:;" onclick="villageInfo('+obj.villageId+',\'info\','+obj.longitude+','+obj.latitude+')" onmouseover="show_pt('+obj.villageId+')">';
-					html += '<div class="imgdiv">';
-					if(obj.firstImgUrl){
-						html += '<img src="'+obj.firstImgUrl+'">';
-					}else{
-						html += '<img src="images/nopic100.jpg">';
-					}
-					html += '</div>';
-					html += '<div class="right">';
-					html += '<div class="name">'+obj.villageNm+'</div>';
-					html += '<div class="gray">'+obj.address+'</div>';
-					html += '<span class="tl gray">'+obj.inYear+'年建</span>';
-					html += '<span class="split gray">&nbsp;</span>';
-					html += '<span class="tl gray">'+obj.inUsers+'户</span>';
-					html += '<span class="split gray">&nbsp;</span>';
-					html += '<span class="tl gray">'+obj.avgPrice+'万/平方</span>';
-					if(obj.activity!=undefined && obj.activity!=0){
-						var activity="小型活动";
-						if(obj.activity==2){
-							activity="中型活动";
-						}else if(obj.activity==3){
-							activity="大型活动";
+			zUtil.post(
+				"http://map.closermedia.cn/sys/login/miniLogin",
+				post,
+				function (data) {
+					zUtil.msg(data.message)
+					if (data.code == 0) {
+						for (var k in data.obj) {
+							zUtil.setCookie(k, data.obj[k]);
 						}
-						html += '<span class="split gray">&nbsp;</span>';
-						html += '<span class="tl orange">'+activity+'</span>';
+						zUtil.close();
+						setTimeout(toDown, 1500);
 					}
-					html += '</div>';
-					html += '</a>';
-					html += '</li>';
-					villageIds[obj.villageId]=1;
-					$("#list ul").append(html);
 				}
-				reset_map(first);
-				var h = $("#list ul").height();
-				$("#list").animate({scrollTop: h+'px'},800);
-				if(data.list.length<pageSize){
-					$("#nextPage").html("没有更多了^_^");
-					$("#nextPage").attr("plus","0");
-				}else{
-					$("#nextPage").html("加载更多");
-					$("#nextPage").attr("plus","1");
-				}
-			}else{
-				$("#nextPage").html("没有更多了^_^");
-				$("#nextPage").attr("plus","0");
+			);
+		}
+		function result_toggle() {
+			$('#result,#result_bg').toggle();
+		}
+		function toDown() {
+			var post = getParam();
+			var form = $("#form1");
+			form.html("");
+			for (var k in post) {
+				var ipt = $("<input type='hidden' name='" + k + "' value='" + post[k] + "' />");
+				form.append(ipt);
 			}
+			form.submit();
 		}
-	);
-}
-function show_pt(id){
-	//$("#pt_"+id).animate({paddingLeft:25},300).animate({paddingLeft:10},300);
-}
-var marker=null;
-function reset_map(obj){
-	var zoom = baseMap.map.getZoom();
-	if(zoom<15){
-		zoom = 15;
-	}
-	if(obj!=null){
-		baseMap.map.removeOverlay(marker);
-		marker=null;
-		baseMap.map.setZoom(zoom);
-		baseMap.map.panTo(new BMap.Point(obj.longitude,obj.latitude));
-		return;
-	}
-    //搜索地址
-	var val = $.trim($("#villageOrAddress").val());
-	if (val == "") {
-		return;
-	}
-	var options = {
-		map : baseMap.map,
-		forceLocal : true,
-		onSearchComplete : function(results) {
-			if (local.getStatus() == BMAP_STATUS_SUCCESS && results.getCurrentNumPois() > 0) {
-				var obj = results.getPoi(0);
-				baseMap.map.setZoom(zoom);
-				baseMap.map.panTo(new BMap.Point(obj.point.lng,obj.point.lat));
-				setTimeout(function(){
-					if(marker==null){
-						marker = new BMap.Marker(obj.point,{enableMassClear:false,title:obj.title});
-						baseMap.map.addOverlay(marker);
-					}else{
-						marker.setPosition(obj.point);
-					}
-				},500);
-			}else{
-				zUtil.msg("请重新搜索！");
+		function nodown() {
+			zUtil.msg('无权下载全部数据！');
+		}
+		function miniLogin() {
+			zUtil.openele("login", "", null, null, null, 350, 300, true);
+		}
+		function showAllCitys() {
+			zUtil.openele("citys", "", null, null, null, 500, 400, true);
+		}
+		function activity(text, v) {
+			$("#activity").val(v);
+			clearParam('activity');
+			$("#activity_ele>a").text(text);
+
+			currentPage = 1;
+			recordCount = 0;
+			loadData();
+			search();
+		}
+		function setRadius(r) {
+			$("#distance_slt").hide();
+			if (circle == null) {
+				return;
 			}
+			$("#distance>a").text(r + "公里");
+			if (r * 1000 == circle.getRadius()) {
+				return;
+			}
+			circle.setRadius(r * 1000);
+			circleSearch();
 		}
-	};
-	var local = new BMap.LocalSearch(baseMap.map, options);
-	local.search(val);
-}
-function searchVillage(){
-	var key = $.trim($("#villageOrAddress").val());
-	var k = $("#villageOrAddress").attr("k");
-	if(k!=undefined && k!=""){
-		key = k;
-		$("#villageOrAddress").val(k);
-	}
-	if(key==""){
-		return;
-	}
-	function myFun(){
-		if(local.getResults().getNumPois()==0){
-			zUtil.msg("没有搜索到结果!");
-			return;
+		function circleSearch() {
+			clearParam('circle');
+			loadData();
+			currentPage = 1;
+			recordCount = 0;
+			search();
 		}
-		var pp = local.getResults().getPoi(0).point;
-		if(circle!=null){
+		function removeCircle() {
+			if (circle == null) {
+				return;
+			}
 			circle.remove();
-			circle=null;
-		}
-		circle = new BMap.Circle(pp,5000,styleOptions);
-		baseMap.map.addOverlay(circle);
-		circle.disableMassClear();
-		baseMap.addHtmlMarker(pp.lng,pp.lat,"<div class='radius' onclick='removeCircle()'>关闭</div>",null,"",20,15);
-		setRadius(3);
-		circleSearch();
-	}
-	var local = new BMap.LocalSearch(baseMap.map,{
-	  onSearchComplete: myFun
-	});
-	local.search(key);
-	/* 
-	currentPage=1;
-	recordCount=0;
-	search();
-	 */
-}
-function onFilter(){
-	$("#villageOrAddress").val("");
-	currentPage=1;
-	recordCount=0;
-	search();
-}
-function toPage(num){
-	num=parseInt(num);
-	if(num<=0){
-		return;
-	}
-	currentPage += num;
-	search();
-}
-var villageInfoMap={};
-function villageInfo(villageId,toId,lng,lat){
-	var zoom = baseMap.map.getZoom();
-	if(zoom<18){
-		zoom = 18;
-	}
-	baseMap.centerPoint(lng,lat,zoom);
-	
-	$("#village_d,#info").html("");
-	if(villageInfoMap[villageId]==undefined){
-		var url = "http://map.closermedia.cn/mediadata/village/info/"+villageId;
-		zUtil.get(url,{},function(html){
-			if($.trim(html)!=""){
-				villageInfoMap[villageId]=html;
-			}
-		},10,null,false,false,"html");
-	}
-	if(villageInfoMap[villageId]==undefined){
-		zUtil.msg("请求异常,请重试!");
-	}
-	$("#"+toId).html(villageInfoMap[villageId]);
-	$("#"+toId).show();
-	info_init();
-}
-//详情页
-var step=810;
-function info_init(){
-	$("#bigimg_ul").width($("#imgCount").val()*step);
-	toBack();
-}
+			circle = null;
+			$(".radius").remove();
+			$("#distance>a").text("范围");
 
-function moveImgs(num){
-	var s = 800;
-	var w = $("#imgCount").val()*200;
-	$("#u_imgs_ul").width(w);
-	var oleft = $("#u_imgs_ul").position().left;
-	num = s*num;
-	left = oleft+num;
-	if(left>=0){
-		left=0;
-	}else if(w+left<800){
-		left = -1*(w-800);
-	}
-	$("#u_imgs_ul").animate({left:left+'px'},"fast");
-}
-function toBigImg(index){
-	$("#vpanel").hide();
-	$("#bigimg").css("display","block");
-	$("#toBack").show();
-	setTimeout(function(){
-		var left  = -1 * index * step;
-		moveBigImg(0,left);
-	},50);
-}
-function moveBigImg(num,left){
-	var oleft = $("#bigimg_ul").position().left;
-	if(left==undefined){
-		num = num*step;
-		left = oleft+num;
-	}
-	var limit = -1*($("#imgCount").val()-1)*step;
-	if(left>=0){
-		if(oleft==0 && left!=0){
-			$("#bigimg_ul").animate({left:'20px'},"fast");
-			$("#bigimg_ul").animate({left:'0px'},"fast");
-			return;
+			$("#villageOrAddress").val("");
+			$("#villageOrAddress").attr("k", "");
+			loadData();
+			currentPage = 1;
+			recordCount = 0;
+			search();
 		}
-		left=0;
-	}else if(left<=limit){
-		if(oleft==limit && left!=limit){
-			$("#bigimg_ul").animate({left:(limit-20)+'px'},"fast");
-			$("#bigimg_ul").animate({left:limit+'px'},"fast");
-			return;
-		}
-		left=limit;
-	}
-	$("#bigimg_ul").animate({left:left+'px'},"fast");
-	var index = Math.abs(left/step);
-	var imgLi = $("#bigimg_ul li:eq("+index+")");
-	var cid=imgLi.attr("c_id");
-	var li = $("#bigLogo_"+cid);
-	shiftBigLogo(li);
-}
-function shiftBigLogo(li,c_id){
-	$("#vpanel").hide();
-	$("#bigimg").css("display","block");
-	$("#toBack").show();
-	
-	$("#big_u_logo li").removeClass("logo_cur");
-	$(li).addClass("logo_cur");
-	if(c_id!=undefined){
-		var index = $("#bigimg_ul li[c_id="+c_id+"]").attr("index");
-		var left  = -1 * index * step;
-		moveBigImg(0,left);
-	}
-}
-function toBack(){
-	$("#bigimg").hide();
-	$("#vpanel").show();
-	$("#toBack").hide();
-	$("#big_u_logo li").removeClass("logo_cur");
-}
-function toLogin(){
-	var post={
-		userName:"",
-		password:"",
-		checkCode:""
-	}
-	var fun={
-		userName:function(v){if(v==""){zUtil.msg("用户名不能空！");return false;}return true;},
-		password:function(v){if(v==""){zUtil.msg("密码不能空！");return false;}return true;},
-		checkCode:function(v){if(v.length!=4){zUtil.msg("验证码为4位！");return false;}return true;}
-	}
-	for(var k in post){
-		var v = $.trim($("#"+k).val());
-		if(!fun[k](v)){
-			$("#"+k).focus();
-			return;
-		}
-		post[k]=v;
-	}
-	zUtil.post(
-		"http://map.closermedia.cn/sys/login/miniLogin",
-		post,
-		function(data){
-			zUtil.msg(data.message)
-			if(data.code==0){
-				for(var k in data.obj){
-					zUtil.setCookie(k,data.obj[k]);
-				}
-				zUtil.close();
-				setTimeout(toDown,1500);
+		function clearParam(t) {
+			if (t != 'filter') {
+				$("#filter input[type='hidden']").each(function (i, item) {
+					this.value = "";
+					$(this).prev().html($(this).attr("default"));
+					if (typeof ($(this).attr("Start")) != 'undefined') {
+						$(this).attr("Start", "");
+						$(this).attr("End", "");
+					}
+				});
+			}
+			if (t != 'circle') {
+				removeCircle();
+			}
+			if (t != 'activity') {
+				$("#activity").val("");
+				$("#activity_ele>a").text("活动");
 			}
 		}
-	);
-}
-function result_toggle(){
-	$('#result,#result_bg').toggle();
-}
-function toDown(){
-	var post = getParam();
-	var form = $("#form1");
-	form.html("");
-	for(var k in post){
-		var ipt = $("<input type='hidden' name='"+k+"' value='"+post[k]+"' />");
-		form.append(ipt);
-	}
-	form.submit();
-}
-function nodown(){
-	zUtil.msg('无权下载全部数据！');
-}
-function miniLogin(){
-	zUtil.openele("login","",null,null,null,350,300,true);
-}
-function showAllCitys(){
-	zUtil.openele("citys","",null,null,null,500,400,true);
-}
-function activity(text,v){
-	$("#activity").val(v);
-	clearParam('activity');
-	$("#activity_ele>a").text(text);
-	
-	currentPage=1;
-	recordCount=0;
-	loadData();
-	search();
-}
-function setRadius(r){
-	$("#distance_slt").hide();
-	if(circle==null){		
-		return;
-	}
-	$("#distance>a").text(r+"公里");
-	if(r*1000 == circle.getRadius()){
-		return;
-	}
-	circle.setRadius(r*1000);
-	circleSearch();
-}
-function circleSearch(){
-	clearParam('circle');
-	loadData();
-	currentPage=1;
-	recordCount=0;
-	search();
-}
-function removeCircle(){
-	if(circle==null){
-		return;	
-	}
-	circle.remove();
-	circle=null;
-	$(".radius").remove();
-	$("#distance>a").text("范围");
+		var drawingManager = null;
+		function drawCircle() {
+			if (circle != null) {
+				circle.remove();
+				circle = null;
+				$(".radius").remove();
+				$("#distance>a").text("范围");
 
-	$("#villageOrAddress").val("");
-	$("#villageOrAddress").attr("k","");
-	loadData();
-	currentPage=1;
-	recordCount=0;
-	search();
-}
-function clearParam(t){
-	if(t!='filter'){
-		$("#filter input[type='hidden']").each(function(i,item){
-			this.value="";
-			$(this).prev().html($(this).attr("default"));
-			if(typeof($(this).attr("Start"))!='undefined'){
-				$(this).attr("Start","");
-				$(this).attr("End","");
+				$("#villageOrAddress").val("");
+				$("#villageOrAddress").attr("k", "");
 			}
-		});
-	}
-	if(t!='circle'){
-		removeCircle();
-	}
-	if(t!='activity'){
-		$("#activity").val("");
-		$("#activity_ele>a").text("活动");
-	}
-}
-var drawingManager = null;
-function drawCircle(){
-	if(circle!=null){
-		circle.remove();
-		circle=null;
-		$(".radius").remove();
-		$("#distance>a").text("范围");
-	
-		$("#villageOrAddress").val("");
-		$("#villageOrAddress").attr("k","");
-	}
-	$("#circle_s>a").addClass("run");
-    drawingManager = new BMapLib.DrawingManager(baseMap.map, {
-    	isOpen: true, //是否开启绘制模式
-        circleOptions: styleOptions
-    });
-    drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
+			$("#circle_s>a").addClass("run");
+			drawingManager = new BMapLib.DrawingManager(baseMap.map, {
+				isOpen: true, //是否开启绘制模式
+				circleOptions: styleOptions
+			});
+			drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE);
 
-    drawingManager.addEventListener('overlaycomplete', function(e){
-    	circle = e.overlay;
-    	circle.disableMassClear();
-    	var pp = circle.getCenter();
-		baseMap.addHtmlMarker(pp.lng,pp.lat,"<div class='radius' onclick='removeCircle()'>关闭</div>",null,"",20,15);
-		circleSearch();
-		$("#circle_s>a").removeClass("run");
-    });
-    /* 
-    baseMap.map.addEventListener('rightclick', function(){
-    	drawingManager.close();
-		$("#circle_s>a").removeClass("run");
-    });
-     */
-}
-</script>
+			drawingManager.addEventListener('overlaycomplete', function (e) {
+				circle = e.overlay;
+				circle.disableMassClear();
+				var pp = circle.getCenter();
+				baseMap.addHtmlMarker(pp.lng, pp.lat, "<div class='radius' onclick='removeCircle()'>关闭</div>", null, "", 20, 15);
+				circleSearch();
+				$("#circle_s>a").removeClass("run");
+			});
+			/* 
+			baseMap.map.addEventListener('rightclick', function(){
+				drawingManager.close();
+				$("#circle_s>a").removeClass("run");
+			});
+			 */
+		}
+
+	</script>
 </head>
 
 <body>
-<div class="top">
-<div class="logo"></div>
-<div class="line"></div>
-<div class="city"><a href="javascript:;" onclick="showAllCitys()">上海</a></div>
-<div class="menu">
-<a href="http://www.closermedia.cn" target="_blank">首页</a>
-<a href="http://www.closermedia.cn/aboutus.htm" target="_blank">了解窗外</a>
-<a href="http://www.closermedia.cn/produce.htm" target="_blank">服务与媒体</a>
-<a href="http://www.closermedia.cn/data.htm" target="_blank">刊后数据</a>
-<a href="http://www.closermedia.cn/partner.htm" target="_blank">客户&amp;伙伴</a>
-<a href="http://www.closermedia.cn/contact.htm" target="_blank">全国窗外</a>
-<a href="http://q.closermedia.cn" target="_blank" style="color: #0c8e44;">登录CRS</a>
-</div>
-<div class="copyright">
-  版权所有：窗外传媒
-  <br/>
-  投放热线：400 888 0282
-</div>
-<div style="float: right;padding: 0px;margin: 0px;margin-top: -4px;margin-right: 10px;">
- <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_46.0.2490.80_Setup.1445829883.exe"><img src="../../static/images/google.jpg"/></a>
-</div>
-</div>
-
-<div style="width: 100%;height: 100%;position: relative;" class="map">
-	<div style="width: 100%;height: 100%;background-color: rgb(50, 129, 219);" id="mapview"></div>
-	
-	<div class="search">
-		<div class="search_d">
-			<input type="text" class="search_text" placeholder="输入小区名称或地址" id="villageOrAddress" autocomplete="off"/>
-			<input type="button" class="search_btn" onclick="searchVillage()"/>
-			<a href="javascript:;" class="search_lnk" onclick="searchVillage()">搜索</a>
-			<div id="distance">
-				<a class="distance">范围</a>
-				<div class="distance_slt" id="distance_slt">
-					<a href="javascript:;" onclick="setRadius(1)">1公里</a>
-					<a href="javascript:;" onclick="setRadius(1.5)">1.5公里</a>
-					<a href="javascript:;" onclick="setRadius(2)">2公里</a>
-					<a href="javascript:;" onclick="setRadius(2.5)">2.5公里</a>
-					<a href="javascript:;" onclick="setRadius(3)">3公里</a>
-					<a href="javascript:;" onclick="setRadius(3.5)">3.5公里</a>
-					<a href="javascript:;" onclick="setRadius(4)">4公里</a>
-					<a href="javascript:;" onclick="setRadius(4.5)">4.5公里</a>
-					<a href="javascript:;" onclick="setRadius(5)">5公里</a>
-				</div>
-			</div>
-			<div class="circle" id="circle_s">
-			<a onclick="drawCircle()">&nbsp;</a>
-			</div>
-			<span class="line"></span>
-			<a href="javascript:;" class="down" onclick="toDown()"> 下载数据</a>
-			
-			<div id="activity_ele">
-				<input type="hidden" id="activity" value=""/>
-				<a class="activity">活动</a>
-				<div class="activity_slt" id="activity_slt">
-					<a href="javascript:;" onclick="activity('全部活动',100)">全部活动</a>
-					<a href="javascript:;" onclick="activity('小型活动',1)">小型活动</a>
-					<a href="javascript:;" onclick="activity('中型活动',2)">中型活动</a>
-					<a href="javascript:;" onclick="activity('大型活动',3)">大型活动</a>
-				</div>
-			</div>
-			
-		</div>
-		<div id="filter" class="filter">
-			<ul>
-				<li>
-					<a href="javascript:;" class="title">区域</a>
-					<input type="hidden" value="" id="districtId" default="区域"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="30101">黄浦</a>
-						
-						<a value="30102">徐汇</a>
-						
-						<a value="30103">静安</a>
-						
-						<a value="30104">长宁</a>
-						
-						<a value="30105">闸北</a>
-						
-						<a value="30106">虹口</a>
-						
-						<a value="30107">杨浦</a>
-						
-						<a value="30108">浦东</a>
-						
-						<a value="30109">普陀</a>
-						
-						<a value="30110">闵行</a>
-						
-						<a value="30111">嘉定</a>
-						
-						<a value="30116">宝山</a>
-						
-						<a value="30117">松江</a>
-						
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;" class="title">房价</a>
-					<input type="hidden" value="" id="avgPrice" Start="" End="" default="房价"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="~5">5万以下</a>
-						
-						<a value="~8">8万以下</a>
-						
-						<a value="8~">8万以上</a>
-						
-						
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;" class="title">户数</a>
-					<input type="hidden" value="" id="inUsers" Start="" End="" default="户数"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="~500">500户以下</a>
-						
-						<a value="500~">500户以上</a>
-						
-						<a value="800~">800户以上</a>
-						
-						<a value="1000~">1000户以上</a>
-						
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;" class="title">房龄</a>
-					<input type="hidden" value="" id="inYear" Start="" End="" default="房龄"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="~2000">2000年前</a>
-						
-						<a value="2000~2010">2000~2010年</a>
-						
-						<a value="2010~">2010以后</a>
-						
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;" class="title">物业</a>
-					<input type="hidden" value="" id="btId" default="物业"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="1">公寓</a>
-						
-						<a value="2">别墅</a>
-						
-						<a value="3">公寓+别墅</a>
-						
-						<a value="4">商业</a>
-						
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;" class="title">品牌</a>
-					<input type="hidden" value="" id="customerId" default="品牌"/>
-					<div>
-						<a value="">不限</a>
-						
-						<a value="59">春秋淹城</a>
-						
-						<a value="228">林肯</a>
-						
-						<a value="81">英孚教育</a>
-						
-						<a value="66">格力空调</a>
-						
-						<a value="49">VIPABC</a>
-						
-						<a value="41">奔驰</a>
-						
-						<a value="31">大师漆</a>
-						
-						<a value="71">英菲尼迪</a>
-						
-						<a value="213">欧洲杯</a>
-						
-						<a value="69">肯德基</a>
-						
-						<a value="56">中海.寰宇天下</a>
-						
-						<a value="225">比亚迪</a>
-						
-						<a value="254">苏宁方太</a>
-						
-						<a value="380">别克汽车</a>
-						
-						<a value="65">江苏卫视</a>
-						
-						<a value="248">VIVO</a>
-						
-						<a value="45">东风日产</a>
-						
-						<a value="52">无忧英语</a>
-						
-						<a value="42">路虎</a>
-						
-						<a value="29">拜博口腔</a>
-						
-						<a value="148">泰森</a>
-						
-						<a value="149">华润万家</a>
-						
-						<a value="60">天目湖</a>
-						
-						<a value="232">尚孔教育</a>
-						
-						<a value="125">链家地产</a>
-						
-						<a value="67">余杭旅游</a>
-						
-						<a value="62">周庄旅游</a>
-						
-						<a value="619">一号店</a>
-						
-						<a value="175">百安居</a>
-						
-						<a value="150">光大银行</a>
-						
-						<a value="46">东风雪铁龙</a>
-						
-						<a value="74">思涟床垫</a>
-						
-						<a value="282">凯仑钻石</a>
-						
-						<a value="72">马自达</a>
-						
-						<a value="257">嬉戏谷</a>
-						
-						<a value="469">钧阳机电</a>
-						
-						<a value="43">上海大众</a>
-						
-						<a value="70">车享拍</a>
-						
-						<a value="255">德视佳</a>
-						
-						<a value="151">乐视电视</a>
-						
-						<a value="68">紫琪尔</a>
-						
-						<a value="61">吴江旅游</a>
-						
-						<a value="681">海尔电器</a>
-						
-						<a value="264">东方广播</a>
-						
-						<a value="73">长颈鹿</a>
-						
-						<a value="599">科勒卫浴</a>
-						
-						<a value="40">奥迪</a>
-						
-						<a value="147">音乐之声</a>
-						
-						<a value="250">玛莎拉蒂</a>
-						
-						<a value="267">梦百合</a>
-						
-						<a value="90">丰田</a>
-						
-						<a value="229">Love Radio</a>
-						
-						<a value="230">交通广播</a>
-						
-						<a value="268">穹窿山</a>
-						
-						<a value="688">上海大剧院</a>
-						
-						<a value="623">君爵酒店</a>
-						
-						<a value="273">辰山音乐节</a>
-						
-					</div>
-				</li>
-			</ul>
-			<span class="list_flag" onclick="result_toggle()"></span>
+	<div class="top">
+		<div class="logo"></div>
+		<div class="line"></div>
+		<div class="city"><a href="javascript:;" onclick="showAllCitys()">上海</a></div>
+		<div class="copyright">
+			<a class="btn btn-default store-btn">登陆管理系统</a>
 		</div>
 	</div>
-	<div class="result result_bg" id="result_bg"></div>
-	<div class="result" id="result">
-		<div class="nav">
-		  共<span id="vc">0</span>个小区
-		  	<span class="rg" id="ord">排序：
+
+	<div style="width: 100%;height: 100%;position: relative;" class="map">
+		<div style="width: 100%;height: 100%;background-color: rgb(50, 129, 219);" id="mapview"></div>
+
+		<div class="search">
+			<div class="search_d">
+				<input type="text" class="search_text" placeholder="输入小区名称或地址" id="villageOrAddress" autocomplete="off" />
+				<input type="button" class="search_btn" onclick="searchVillage()" />
+				<a href="javascript:;" class="search_lnk" onclick="searchVillage()">搜索</a>
+				<div id="distance">
+					<a class="distance">范围</a>
+					<div class="distance_slt" id="distance_slt">
+						<a href="javascript:;" onclick="setRadius(1)">1公里</a>
+						<a href="javascript:;" onclick="setRadius(1.5)">1.5公里</a>
+						<a href="javascript:;" onclick="setRadius(2)">2公里</a>
+						<a href="javascript:;" onclick="setRadius(2.5)">2.5公里</a>
+						<a href="javascript:;" onclick="setRadius(3)">3公里</a>
+						<a href="javascript:;" onclick="setRadius(3.5)">3.5公里</a>
+						<a href="javascript:;" onclick="setRadius(4)">4公里</a>
+						<a href="javascript:;" onclick="setRadius(4.5)">4.5公里</a>
+						<a href="javascript:;" onclick="setRadius(5)">5公里</a>
+					</div>
+				</div>
+				<div class="circle" id="circle_s">
+					<a onclick="drawCircle()">&nbsp;</a>
+				</div>
+				<span class="line"></span>
+				<a href="javascript:;" class="down" onclick="toDown()"> 下载数据</a>
+
+				<div id="activity_ele">
+					<input type="hidden" id="activity" value="" />
+					<a class="activity">活动</a>
+					<div class="activity_slt" id="activity_slt">
+						<a href="javascript:;" onclick="activity('全部活动',100)">全部活动</a>
+						<a href="javascript:;" onclick="activity('小型活动',1)">小型活动</a>
+						<a href="javascript:;" onclick="activity('中型活动',2)">中型活动</a>
+						<a href="javascript:;" onclick="activity('大型活动',3)">大型活动</a>
+					</div>
+				</div>
+
+			</div>
+			<div id="filter" class="filter">
+				<ul>
+					<li>
+						<a href="javascript:;" class="title">区域</a>
+						<input type="hidden" value="" id="districtId" default="区域" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="30101">黄浦</a>
+
+							<a value="30102">徐汇</a>
+
+							<a value="30103">静安</a>
+
+							<a value="30104">长宁</a>
+
+							<a value="30105">闸北</a>
+
+							<a value="30106">虹口</a>
+
+							<a value="30107">杨浦</a>
+
+							<a value="30108">浦东</a>
+
+							<a value="30109">普陀</a>
+
+							<a value="30110">闵行</a>
+
+							<a value="30111">嘉定</a>
+
+							<a value="30116">宝山</a>
+
+							<a value="30117">松江</a>
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:;" class="title">房价</a>
+						<input type="hidden" value="" id="avgPrice" Start="" End="" default="房价" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="~5">5万以下</a>
+
+							<a value="~8">8万以下</a>
+
+							<a value="8~">8万以上</a>
+
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:;" class="title">户数</a>
+						<input type="hidden" value="" id="inUsers" Start="" End="" default="户数" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="~500">500户以下</a>
+
+							<a value="500~">500户以上</a>
+
+							<a value="800~">800户以上</a>
+
+							<a value="1000~">1000户以上</a>
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:;" class="title">房龄</a>
+						<input type="hidden" value="" id="inYear" Start="" End="" default="房龄" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="~2000">2000年前</a>
+
+							<a value="2000~2010">2000~2010年</a>
+
+							<a value="2010~">2010以后</a>
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:;" class="title">物业</a>
+						<input type="hidden" value="" id="btId" default="物业" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="1">公寓</a>
+
+							<a value="2">别墅</a>
+
+							<a value="3">公寓+别墅</a>
+
+							<a value="4">商业</a>
+
+						</div>
+					</li>
+					<li>
+						<a href="javascript:;" class="title">品牌</a>
+						<input type="hidden" value="" id="customerId" default="品牌" />
+						<div>
+							<a value="">不限</a>
+
+							<a value="59">春秋淹城</a>
+
+							<a value="228">林肯</a>
+
+							<a value="81">英孚教育</a>
+
+							<a value="66">格力空调</a>
+
+							<a value="49">VIPABC</a>
+
+							<a value="41">奔驰</a>
+
+							<a value="31">大师漆</a>
+
+							<a value="71">英菲尼迪</a>
+
+							<a value="213">欧洲杯</a>
+
+							<a value="69">肯德基</a>
+
+							<a value="56">中海.寰宇天下</a>
+
+							<a value="225">比亚迪</a>
+
+							<a value="254">苏宁方太</a>
+
+							<a value="380">别克汽车</a>
+
+							<a value="65">江苏卫视</a>
+
+							<a value="248">VIVO</a>
+
+							<a value="45">东风日产</a>
+
+							<a value="52">无忧英语</a>
+
+							<a value="42">路虎</a>
+
+							<a value="29">拜博口腔</a>
+
+							<a value="148">泰森</a>
+
+							<a value="149">华润万家</a>
+
+							<a value="60">天目湖</a>
+
+							<a value="232">尚孔教育</a>
+
+							<a value="125">链家地产</a>
+
+							<a value="67">余杭旅游</a>
+
+							<a value="62">周庄旅游</a>
+
+							<a value="619">一号店</a>
+
+							<a value="175">百安居</a>
+
+							<a value="150">光大银行</a>
+
+							<a value="46">东风雪铁龙</a>
+
+							<a value="74">思涟床垫</a>
+
+							<a value="282">凯仑钻石</a>
+
+							<a value="72">马自达</a>
+
+							<a value="257">嬉戏谷</a>
+
+							<a value="469">钧阳机电</a>
+
+							<a value="43">上海大众</a>
+
+							<a value="70">车享拍</a>
+
+							<a value="255">德视佳</a>
+
+							<a value="151">乐视电视</a>
+
+							<a value="68">紫琪尔</a>
+
+							<a value="61">吴江旅游</a>
+
+							<a value="681">海尔电器</a>
+
+							<a value="264">东方广播</a>
+
+							<a value="73">长颈鹿</a>
+
+							<a value="599">科勒卫浴</a>
+
+							<a value="40">奥迪</a>
+
+							<a value="147">音乐之声</a>
+
+							<a value="250">玛莎拉蒂</a>
+
+							<a value="267">梦百合</a>
+
+							<a value="90">丰田</a>
+
+							<a value="229">Love Radio</a>
+
+							<a value="230">交通广播</a>
+
+							<a value="268">穹窿山</a>
+
+							<a value="688">上海大剧院</a>
+
+							<a value="623">君爵酒店</a>
+
+							<a value="273">辰山音乐节</a>
+
+						</div>
+					</li>
+				</ul>
+				<span class="list_flag" onclick="result_toggle()"></span>
+			</div>
+		</div>
+		<div class="result result_bg" id="result_bg"></div>
+		<div class="result" id="result">
+			<div class="nav">
+				共<span id="vc">0</span>个小区
+				<span class="rg" id="ord">排序：
 			  	<a href="javascript:;" class="ord" rel="a">房龄</a>
 				<a href="javascript:;" class="ord" rel="b">均价</a>
 				<a href="javascript:;" class="ord" rel="c">户数</a>
 			</span>
-			<img style="float: right;position: absolute;right: 4px;top: 7px;cursor: pointer;width: 20px;" alt="" src="images/close.png" onclick="$('#result,#result_bg').hide();$('.list_flag').show();"/>
+				<img style="float: right;position: absolute;right: 4px;top: 7px;cursor: pointer;width: 20px;" alt="" src="images/close.png"
+				 onclick="$('#result,#result_bg').hide();$('.list_flag').show();" />
+			</div>
+
+			<div class="group">
+				<span>社区数&nbsp;<span id="villageCount_c"></span></span>
+				<span>灯箱数&nbsp;<span id="mediaCount_c"></span></span>
+				<span>覆盖家庭&nbsp;<span id="inUsersCount_c"></span></span>
+				<span>住宅均价&nbsp;<span id="avgPrice_c"></span>万/平方</span>
+			</div>
+
+			<div id="list" class="list">
+				<ul></ul>
+			</div>
+			<div class="nextPage" id="nextPage" onclick="toPage($(this).attr('plus'))" plus="1">加载更多</div>
+			<div id="info">
+			</div>
 		</div>
-	
-		<div class="group">
-			<span>社区数&nbsp;<span id="villageCount_c"></span></span>
-			<span>灯箱数&nbsp;<span id="mediaCount_c"></span></span>
-			<span>覆盖家庭&nbsp;<span id="inUsersCount_c"></span></span>
-			<span>住宅均价&nbsp;<span id="avgPrice_c"></span>万/平方</span>
+
+	</div>
+	<div id="village_d"></div>
+
+	<div id="login">
+		<div class="title">请先登录</div>
+		<div class="ipt"><span>用户名:</span><input tabindex="1" id="userName"></div>
+		<div class="ipt"><span>密码:</span><input tabindex="2" type="password" id="password"></div>
+		<div class="ipt">
+			<span>验证码:</span><input type="text" size="30" tabindex="3" id="checkCode" name="checkCode" maxlength="4" onkeypress="zUtil.isEnter(event,function(){toLogin();})"
+			 autocomplete="off" style="width: 75px;" />
+			<img id="codeImg" onClick="zUtil.updateVerifyCode('codeImg','checkCode')" src="http://map.closermedia.cn/common/getCode"
+			 width="70" height="28" style="position: absolute;" />
 		</div>
-	
-		<div id="list" class="list">
-			<ul></ul>
-		</div>
-		<div class="nextPage" id="nextPage" onclick="toPage($(this).attr('plus'))" plus="1">加载更多</div>
-		<div id="info">
-		</div>
+		<a href="javascript:;" onclick="toLogin()">登&nbsp;录</a>
 	</div>
 
-</div>
-<div id="village_d"></div>
-
-<div id="login">
-	<div class="title">请先登录</div>
-	<div class="ipt"><span>用户名:</span><input tabindex="1" id="userName"></div>
-	<div class="ipt"><span>密码:</span><input tabindex="2" type="password" id="password"></div>
-	<div class="ipt">
-		<span>验证码:</span><input type="text" size="30" tabindex="3" id="checkCode" name="checkCode" maxlength="4" onkeypress="zUtil.isEnter(event,function(){toLogin();})" autocomplete="off" style="width: 75px;"/>
-		<img id="codeImg" onClick="zUtil.updateVerifyCode('codeImg','checkCode')" src="http://map.closermedia.cn/common/getCode" width="70" height="28" style="position: absolute;"/>
-	</div>
-	<a href="javascript:;" onclick="toLogin()">登&nbsp;录</a>
-</div>
-
-<div id="citys">
-	<div class="title">
-		切换城市
-	</div>
+	<div id="citys">
+		<div class="title">
+			切换城市
+		</div>
 		<div class="city">
 			<label>已开通：</label>
 			<div style="padding-left:100px;">
-			
-				
-					<a href="http://map.closermedia.cn/101" >北京</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/301" class="cur">上海</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/2501" >广州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/2502" >深圳</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/2801" >成都</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1401" >南京</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/2301" >福州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1901" >太原</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1202" >青岛</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1203" >烟台</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1402" >无锡</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1403" >常州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1405" >扬州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1501" >杭州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1502" >温州</a>
-				
-			
-				
-					<a href="http://map.closermedia.cn/1701" >武汉</a>
-				
-			
+
+
+				<a href="http://map.closermedia.cn/101">北京</a>
+
+
+
+				<a href="http://map.closermedia.cn/301" class="cur">上海</a>
+
+
+
+				<a href="http://map.closermedia.cn/2501">广州</a>
+
+
+
+				<a href="http://map.closermedia.cn/2502">深圳</a>
+
+
+
+				<a href="http://map.closermedia.cn/2801">成都</a>
+
+
+
+				<a href="http://map.closermedia.cn/1401">南京</a>
+
+
+
+				<a href="http://map.closermedia.cn/2301">福州</a>
+
+
+
+				<a href="http://map.closermedia.cn/1901">太原</a>
+
+
+
+				<a href="http://map.closermedia.cn/1202">青岛</a>
+
+
+
+				<a href="http://map.closermedia.cn/1203">烟台</a>
+
+
+
+				<a href="http://map.closermedia.cn/1402">无锡</a>
+
+
+
+				<a href="http://map.closermedia.cn/1403">常州</a>
+
+
+
+				<a href="http://map.closermedia.cn/1405">扬州</a>
+
+
+
+				<a href="http://map.closermedia.cn/1501">杭州</a>
+
+
+
+				<a href="http://map.closermedia.cn/1502">温州</a>
+
+
+
+				<a href="http://map.closermedia.cn/1701">武汉</a>
+
+
 			</div>
-			<label class="clear">即将开通：</label> 
+			<label class="clear">即将开通：</label>
 			<div style="padding-left:100px;">
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</div>
 		</div>
 	</div>
 
-<form action="http://map.closermedia.cn/mediadata/downdata" target="downifm" id="form1" method="post"></form>
-<iframe name="downifm" style="display: none;"></iframe>
+	<form action="http://map.closermedia.cn/mediadata/downdata" target="downifm" id="form1" method="post"></form>
+	<iframe name="downifm" style="display: none;"></iframe>
 </body>
+
 </html>

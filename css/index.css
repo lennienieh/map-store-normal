@@ -18,23 +18,25 @@ a {
 
 .top {
 	width: 100%;
-    height: 41px;
+    height: 50px;
     border-bottom: 1px #7AA91D solid;
     padding: 5px 0px;
 }
 
-.top a {
+/*.top a {
 	color: #777;
 	font-size: 14px;
-}
+}*/
 
 .top .logo {
-    width: 174px;
-    height: 41px;
-    background-image: url(../images/logo174.jpg);
-    display: inline-block;
+    width: 105px;
+    height: 35px;
+    background-image: url(/images/logo174.jpg);
+    /*display: inline-block;*/
     float: left;
     margin-left: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .top .line {
@@ -49,7 +51,7 @@ a {
 }
 
 .top .city {
-display: inline-block;
+/*display: inline-block;*/
     float: left;
     margin-top: 7px;
     margin-left: 10px;
@@ -66,10 +68,15 @@ display: inline-block;
 	background-size: 10px;
 }
 
+.city a{
+	color: #4b4b4b;
+	font-size: 14px;
+}
+
 .top .menu {
 	height: 41px;
 	line-height: 41px;
-	display: inline-block;
+	/*display: inline-block;*/
 	float: left;
 }
 
@@ -650,7 +657,7 @@ display: inline-block;
 #vpanel .content .villageInfo {
 	width: 360px;
 	float: right;
-	display: inline-block;
+	/*display: inline-block;*/
 	margin-top: 20px;
 	height: 300px;
 	overflow: hidden;
@@ -917,9 +924,9 @@ display: inline-block;
 	height: 300px;
 }
 
-#login>div {
+/*#login>div {
 	
-}
+}*/
 
 #login .title {
 	width: 100%;
@@ -1038,7 +1045,15 @@ display: inline-block;
     width: 170px;
     color: #777;
     line-height: 20px;
-    margin-top: 0px
+    margin-top: 4px
+}
+
+.store-btn{
+    background-color: #ffad0d;
+    color: #fff;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .map .radius{
