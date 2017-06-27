@@ -1,0 +1,116 @@
+{
+    "groupData": [
+        {
+            "city_id": 101,
+            "media_numb": 472,
+            "city_nm": "北京",
+            "longitude": 116.413554,
+            "latitude": 39.911013
+        },
+        {
+            "city_id": 301,
+            "media_numb": 701,
+            "city_nm": "上海",
+            "longitude": 121.480237,
+            "latitude": 31.236305
+        },
+        {
+            "city_id": 1202,
+            "media_numb": 382,
+            "city_nm": "青岛",
+            "longitude": 120.389101,
+            "latitude": 36.073166
+        },
+        {
+            "city_id": 1203,
+            "media_numb": 183,
+            "city_nm": "烟台",
+            "longitude": 121.454425,
+            "latitude": 37.469868
+        },
+        {
+            "city_id": 1401,
+            "media_numb": 361,
+            "city_nm": "南京",
+            "longitude": 118.802891,
+            "latitude": 32.064735
+        },
+        {
+            "city_id": 1402,
+            "media_numb": 100,
+            "city_nm": "无锡",
+            "longitude": 120.318954,
+            "latitude": 31.496704
+        },
+        {
+            "city_id": 1403,
+            "media_numb": 251,
+            "city_nm": "常州",
+            "longitude": 119.980142,
+            "latitude": 31.816791
+        },
+        {
+            "city_id": 1405,
+            "media_numb": 160,
+            "city_nm": "扬州",
+            "longitude": 119.419107,
+            "latitude": 32.39986
+        },
+        {
+            "city_id": 1501,
+            "media_numb": 465,
+            "city_nm": "杭州",
+            "longitude": 120.161693,
+            "latitude": 30.280059
+        },
+        {
+            "city_id": 1502,
+            "media_numb": 185,
+            "city_nm": "温州",
+            "longitude": 120.705869,
+            "latitude": 28.001095
+        },
+        {
+            "city_id": 1701,
+            "media_numb": 46,
+            "city_nm": "武汉",
+            "longitude": 114.311969,
+            "latitude": 30.598516
+        },
+        {
+            "city_id": 1901,
+            "media_numb": 118,
+            "city_nm": "太原",
+            "longitude": 112.55706,
+            "latitude": 37.876885
+        },
+        {
+            "city_id": 2301,
+            "media_numb": 476,
+            "city_nm": "福州",
+            "longitude": 119.302938,
+            "latitude": 26.080447
+        },
+        {
+            "city_id": 2501,
+            "media_numb": 422,
+            "city_nm": "广州",
+            "longitude": 113.261199,
+            "latitude": 23.157149
+        },
+        {
+            "city_id": 2502,
+            "media_numb": 344,
+            "city_nm": "深圳",
+            "longitude": 114.1807,
+            "latitude": 22.449892
+        },
+        {
+            "city_id": 2801,
+            "media_numb": 1154,
+            "city_nm": "成都",
+            "longitude": 104.071216,
+            "latitude": 30.576279
+        }
+    ]
+}
